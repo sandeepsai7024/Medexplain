@@ -1,0 +1,6 @@
+{
+  "name": "MedExplain",
+  "description": "Your medicine. Clearly explained. Multilingual international medicine information platform with smart label scanning, verified source citations, interaction awareness, and clinical governance.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
