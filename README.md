@@ -45,6 +45,49 @@ All 16 relational tables are exportable/validatable via the Admin Governance Por
 | 10-Section Grounded Explainer & 6 Languages | **Fully Working** | Deterministic fallback when offline or key missing |
 | Manual Reminders & Adherence Tracking | **Working Schedule + Browser Alerts** | External SMS/email push requires production SMTP/FCM keys |
 
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│                        PATIENT & ADMIN CLIENT (React 19 PWA)               │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │ Patient Portal (UI)  │  │ Smart Scanner & OCR  │  │ Admin Governance │  │
+│  │ • Large-Print Mode   │  │ • Camera / Upload    │  │ • 16-CSV Importer│  │
+│  │ • 10-Part Explainer  │  │ • Extraction Review  │  │ • Duplicate Check│  │
+│  │ • 6-Lang Switcher    │  │ • Match Confirmation │  │ • Clinical Review│  │
+│  │ • Reminders & Compare│  │ • Failed Scan Log    │  │ • Audit & QA Logs│  │
+│  └──────────┬───────────┘  └──────────┬───────────┘  └────────┬─────────┘  │
+│             └─────────────────────────┼───────────────────────┘            │
+│                         Firebase Auth ID Token (Bearer)                    │
+└───────────────────────────────────────┼────────────────────────────────────┘
+                                        ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                   EXPRESS API & SAFETY ORCHESTRATION LAYER                 │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │ Auth & RBAC Guard    │  │ Clinical Safety Gate │  │ Country Registry │  │
+│  │ • Firebase Admin SDK │  │ • GREEN / AMBER / RED│  │ • UK, IN, US, CA │  │
+│  │ • Role Verification  │  │ • Emergency Routing  │  │ • AU, EU Configs │  │
+│  │ • Consent Enforcement│  │ • No-Source Block    │  │ • Local Helplines│  │
+│  └──────────┬───────────┘  └──────────┬───────────┘  └────────┬─────────┘  │
+│             ▼                         ▼                       ▼            │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │ @google/genai Engine │  │ OpenFDA Connector    │  │ 16-CSV Pipeline  │  │
+│  │ • Vision OCR Schema  │  │ • api.fda.gov/drug/  │  │ • Parse/Validate │  │
+│  │ • Grounded Explainer │  │   label.json Search  │  │ • Missing Fields │  │
+│  │ • 6-Lang Translator  │  │ • SPL Mapping        │  │ • Diff & Export  │  │
+│  └──────────┬───────────┘  └──────────┬───────────┘  └────────┬─────────┘  │
+└─────────────┼─────────────────────────┼───────────────────────┼────────────┘
+              │                         ▼                       │
+              │              External Official API              │
+              │              (OpenFDA Drug Labels)              │
+              ▼                                                 ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                   CLOUD SQL POSTGRESQL (Drizzle ORM + pg Pool)             │
+│  • 16 Normalized Medicine Catalog & Governance Tables                      │
+│  • Users, Consents, Saved Medicines, Manual Reminders, Reminder Logs       │
+│  • OCR Scan Sessions (Failed/Confirmed), AI QA Reviews, Immutable AuditLog │
+└────────────────────────────────────────────────────────────────────────────┘
+
+
 ## Running Tests & Build
 
 ```bash
